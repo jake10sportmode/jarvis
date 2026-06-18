@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JARVIS Setup</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 100%;
+            padding: 40px;
+        }
+        
+        h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            color: #333;
+            text-align: center;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        
+        .step {
+            margin-bottom: 30px;
+        }
+        
+        .step-number {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 32px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .step-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #333;
+            display: inline-block;
+        }
+        
+        .step-content {
+            margin-left: 42px;
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: monospace;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        button {
+            width: 100%;
+            padding: 14px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background 0.3s;
+        }
+        
+        button:hover {
+            background: #5568d3;
+        }
+        
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .status {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 14px;
+            text-align: center;
+        }
+        
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .status.loading {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        
+        .spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #0c5460;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-right: 8px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .info-box {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 30px;
+            font-size: 13px;
+            color: #666;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 JARVIS</h1>
+        <p class="subtitle">Voice AI Assistant Setup</p>
+        
+        <div class="step">
+            <span class="step-number">1</span>
+            <div class="step-title">Get Gemini API Key</div>
+            <div class="step-content">
+                Go to <a href="https://aistudio.google.com/app/apikey" target="_blank">Google AI Studio</a>
+                <br>Click "Create API Key" and copy it
+            </div>
+        </div>
+        
+        <div class="step">
+            <span class="step-number">2</span>
+            <div class="step-title">Get Fish Audio API Key</div>
+            <div class="step-content">
+                Go to <a href="https://fish.audio" target="_blank">Fish Audio</a>
+                <br>Sign up, go to your API settings, and copy your key
+            </div>
+        </div>
+        
+        <div class="step">
+            <span class="step-number">3</span>
+            <div class="step-title">Paste Your Keys Below</div>
+            <div class="step-content">
+                <input type="password" id="geminiKey" placeholder="Paste Gemini API Key here">
+                <input type="password" id="fishKey" placeholder="Paste Fish Audio API Key here">
+                <button onclick="saveKeys()">Save & Start JARVIS</button>
+                <div id="status"></div>
+            </div>
+        </div>
+        
+        <div class="info-box">
+            <strong>ℹ️ How it works:</strong>
+            Your API keys are saved locally on your computer only. We don't send them anywhere. JARVIS uses these keys to power the voice AI and text-to-speech.
+        </div>
+    </div>
+    
+    <script>
+        function saveKeys() {
+            const geminiKey = document.getElementById('geminiKey').value.trim();
+            const fishKey = document.getElementById('fishKey').value.trim();
+            const statusDiv = document.getElementById('status');
+            
+            if (!geminiKey) {
+                statusDiv.className = 'status error';
+                statusDiv.textContent = '❌ Please paste your Gemini API Key';
+                return;
+            }
+            
+            if (!fishKey) {
+                statusDiv.className = 'status error';
+                statusDiv.textContent = '❌ Please paste your Fish Audio API Key';
+                return;
+            }
+            
+            // Save to localStorage
+            localStorage.setItem('geminiKey', geminiKey);
+            localStorage.setItem('fishKey', fishKey);
+            
+            statusDiv.className = 'status success';
+            statusDiv.textContent = '✅ Keys saved! JARVIS is ready.';
+            
+            // Redirect to app in 2 seconds
+            setTimeout(() => {
+                window.location.href = 'app.html';
+            }, 2000);
+        }
+        
+        // Allow Enter key to submit
+        document.getElementById('fishKey').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') saveKeys();
+        });
+    </script>
+</body>
+</html>
